@@ -1,77 +1,27 @@
-enum class InstructionValues(val symbol: Char) {
-    UP('^'),
-    LEFT('<'),
-    RIGHT('>'),
-    DOWN('v')
-}
 
+import classes.Keyboard
+import classes.Decoder
+//import utils.decodeFile
 
-interface Instruction {
-    fun move(position: IntArray): IntArray
-}
-
-class Up : Instruction {
-    override fun move(position: IntArray): IntArray {
-        if (position.size != 2) {
-            throw IllegalArgumentException("Array mora imati tačno 2 elementa")
-        }
-        if (position[0]>0) {
-            position[0]--
-            return position
-        }
-        return position
-
-    }
-
-}
-
-class Down : Instruction {
-    override fun move(position: IntArray): IntArray {
-        if (position.size != 2) {
-            throw IllegalArgumentException("Array mora imati tačno 2 elementa")
-        }
-        if (position[0]<2) {
-            position[0]++
-            return position
-        }
-        return position
-
-    }
-
-}
-
-class Left : Instruction {
-    override fun move(position: IntArray): IntArray {
-        if (position.size != 2) {
-            throw IllegalArgumentException("Array mora imati tačno 2 elementa")
-        }
-        if (position[1]>0) {
-            position[1]--
-            return position
-        }
-        return position
-
-    }
-
-}
-class Right : Instruction {
-    override fun move(position: IntArray): IntArray {
-        if (position.size != 2) {
-            throw IllegalArgumentException("Array mora imati tačno 2 elementa")
-        }
-        if (position[1]<2) {
-            position[1]++
-            return position
-        }
-        return position
-
-    }
-
-}
 
 fun main() {
-    // Iterate over each value in the enum and print both the name and symbol
-    for (instruction in InstructionValues.values()) {
-        println("Direction: ${instruction.name}, Symbol: ${instruction.symbol}")
+        val instructions=mutableListOf<String>()
+        instructions.add("^<<")
+        instructions.add(">>vvv")
+        instructions.add("<^>v<")
+        instructions.add("^^^^v")
+
+        val keyboard:Keyboard=Keyboard()
+        val decoder:Decoder=Decoder(keyboard)
+        val code = decoder.decode(instructions)
+        print(code)
+
+
+        /*
+        println("Enter instructions file path:")
+        val filePath = readLine()
+        val fileCode= decodeFile(filePath)
+        print(fileCode)
+         */
+
     }
-}
